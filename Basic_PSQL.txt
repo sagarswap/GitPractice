@@ -1,0 +1,38 @@
+>create database demo;
+>create table person(Id serial, Fname varchar(10), Lname varchar(10), age integer, state varchar(10));
+//auto-increment using serial is easier but manually entering the ID may be better since you get greater control, especially needed if there was deletions in any entires.
+>create table student(S_Id serial, marks varchar(5));
+>alter table student add constraint pk primary key(S_Id);
+//pk is just the contraint name, it's a good habit to regulate them as you can later disable them just by name. Contraint name in one table is not carried over to other tables.
+>alter table student alter column marks set not null;
+//you cannot add a contraint to a table if it has values whch already violate it, in such case, change that value before you add constraint
+>alter table person add check(age between 0 and 120);
+
+>begin; //locks the database, any changes done by another user will happen only after we finish
+>insert into student(marks) values (10);
+>insert into student(marks) values (2);
+>rollback; // unlocks db, undos any changes we made
+>begin;
+>insert into student(marks) values (10);
+>insert into student(marks) values (2);
+>commit; // unlocks db, saves any changes we made
+
+//SQL optimization is usage of more efficient methods of usage of a db, to increase execution speed. e.g. use 'in' instead of 'or'
+//You can use distinct keyword only once, even in a compound SQL statement with subqueries.
+>select fname, age from person where fname in( select distinct fname from person);
+>select age, fname from person order by age, fname desc; //this will first sort age in ascending order and then all the entries with same age will be sorted in desc order alphabetically
+>select name from person order by age desc limit 3; //display names of 3 oldest people in db
+>select lpad(cast(salary as varchar), 6, '*') from employee; //first converts salary (int) to string and prints 6 characters, if less will print '*'.
+//lpad prints on left while rpad prints on right
+
+>select a1.id, a1.fname, b.salary from person a1 inner join employee b on (a1.id=b.e_id);
+//gives the common entries of person and employees based on id
+
+>select a1.id, a1.fname, b.salary from person a1 left outer join employee b on (a1.id=b.e_id) where b.salary is null;
+//gives list of employees without a salary
+>select a1.fname from person a1 inner join employee b on(a1.id = b.e_id) where b.salary>50000;
+> select a1.fname from person a1 where a.id in (select e_id from eployee where salary>50000);
+//both above statements print employees with salary greater than 50k
+
+//aggregate funs like count() cannot come wtih non aggregate coloumns, if you wanna do that, do order by *non aggregate*
+>select age, count(*) from person group by (age) order by age; //lists number of peeps or each age

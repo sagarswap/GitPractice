@@ -1,0 +1,41 @@
+Views should be used by everyone except the admin as it hides coloumn names which prevents SQL Injection attacks.
+There are 2 types of views, Simple & Complex.
+Simple views can be altered while complex views cannot be.
+When you create a view from multiple tables, it becomes a complex view.
+It basically creates a logical table.
+
+>create view s2 as select * from person where id=1; //just creates view
+>select * from s2; //prints view
+>create view s3 s select * from person where id=1 with check option;
+//the last 2 words prevents user from changing values other than the ones which will be displayed.
+
+Views provide faster access than regular tables.
+This is because when you write a long query, a view will parse and compile it and keep it, you also don't have to write the entire thing all over again.
+Thus you don't have to execute the same query again and again.
+It does not cache anything tho.
+You can have an inner join between an table and a view.
+Indexing in views decreases search time. It's useful if you're sreaching for a very particular type of data, don't use it for mass selection.
+If the coloumn in a primary key or unique, the indexes will be created automatically, so no need to create indexes for them.
+
+A functions takes arguments and returns a value, if it doesn't, it's a procedure.
+
+create or replace totalmoney(ineteger)
+returns ineteger as $$
+DECLARE
+	a integer:=$1; //first argument
+	b integer:=0;
+	t integer:=0;
+BEGIN
+	t:=a*12;
+	IF t<500001 THEN
+		b:=0;
+	ELSE IF t<1000001 THEN
+		b:=(t-500000)*0.2;
+	ELSE
+		b:=(t-1000000)*0.3+100000;
+	END IF;
+	RETURN b;
+END;
+
+Q. Create a query to display employee id, name and salary. If salary not there, display salary yet to be allotted.
+Note - if a question goes with negation, go for left outer join

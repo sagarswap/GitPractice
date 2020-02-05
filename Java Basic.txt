@@ -1,0 +1,126 @@
+Java is secure as:
+	Java is secure because it's translated to byte code which cannot be modified by a virus.
+	Java stores data in .jar files and creates a temporary .exe file only during execution hence it can't be attacked.
+	Java has E-Signatures.
+
+Java is simple as it supporks APIs.
+
+Java is distributed as it supports Remote Method Invocation.
+
+Java is not 100% dynamic and not 100% OOP.
+
+ALL CAPS for constants.
+thisIsAFunction()
+ThisIsAClass
+thisisaveraible
+
+Class and instance variables are auto initialised while local variabkes are not.
+
+A class variable is a static instance variable, its value is shared with all objects of that class.
+You can just use *classname*.*class var* to access them in other classes.
+
+There are 2 types of methods, Managerial and non-Manegerial methods.
+Manegerial methods are methods which are managed/called automatically by the system. e.g. Contructors and Destructors
+Non-Manegerial methods are of 2 types, Instance and Class methods.
+Instance methods need an object creation to be referred to while class methods are static and we can just use the class name to refer to them.
+Instance methods can access class and instance variables/methods while a class method cannot access instance variables/methods, just other class vars/fn().
+'this.' keyword cannot be used in class methods.
+if you wanna access an instance method/var from a class method, you need to create an object (even if you're referring to them in the same class).
+
+2 methods can't have same method signature, even while overloading. signature only contains name and params, not return type or access specifier.
+
+A constructor can call other contructors by using only the super() as the first line of the constructor body.
+Let X, Y & Z be contructors and let -> imply calls.
+X->Y->X is not possible as it's cyclic.
+X->Y->Z is possible
+
+When an object has no reference, it is removed from the memory automatically, this is called auto garbage collection.
+Before object removal, we have to prepare certian things, this is refered to as dispose technique.
+Before the object is removed, we check if there is any resources are in the obj, if present, it's handed over to the OS.
+Destrcutors are called before garbage collection to ensure proper disposal.
+
+Q. Create a class numeric which processes an array of integers. It should have the following facilities:
+	i) If the array size is not specified, default array size should be 10;
+	ii)If the size if specified, it should take the respective size for the array.
+	iii)It should be able to adpot another array
+	iv)It should be able to copy data from another object
+	v) It should be able to sort the array, do binary search, display elements horsiontally and vertically
+	vi)Convert aray data to binary data, octal and hexadecimal
+	vii)Have a dispose technique.
+
+Anonymous blocks work before a constructor, but static anonymous block will be executed before non-static ones.
+Static ones will only execute once in a program while non-static will execute everytime before a constcutor is called.
+If constructor isn't publc, you can't create an object of that class, outside that class.
+Default contrcutors are public in nature.
+
+Destrcutors are : public void finalize(){}
+Garbage collection is not done immediately, it's done after some time.
+Assign an object the value 'null' to queue it for garbage collection.
+If you wanna remove an object immediately, use: System.gc();
+
+If you wanna access protected members of a class, use the extends keyword.
+
+Non-access specifier are 'static', 'final', 'native', 'syncrhonise', 'transient' etc.
+
+Java doesn't support multiple inheritance since it can lead to redundancy and conflicts incase 2 super classes have same objs.
+When a superclass obj references a subclass, it can only access the super class' fn, inorder to access the subclass' functions, we need to use virtual class.
+This is called run-time polymorhpism/dynamic
+Calculate ob[]=new Calculate[4]; <- This does not create any objects, it just initialises an array of obj.
+Objs are created only with new Calculate() <- WITH the round brackets
+
+Q. Write a C program to print  your name in the middle of the screen without using any fn.
+
+We use abstract classes when we want to implement its functionalities without making it's object, but the object of it's subclass.
+A virtual fn in an abstract class needs the keyword 'abstract' on it's fn header. This makes it a purely virtual class.
+
+In an interface, all fns are virtual. You can add the keyword 'abstract' for fns and classnames in an interface but it won't make a difference.
+We cannot have constructors or data members in an interface, but if you do, they will always be final and static (you don't ned to mention it).
+All fns of an interface must be implemented, you can keep the body empty and not call it but need to mention it atleast with @override.
+Java supports multiple implementation.
+All functions in an interface should be public because your services need to be called from outside the applications.
+When we are overrideing, the access specifier should be equal or higher in freedom.
+i.e. if superclass member is protected, subclass can define it as public or protected, but not private.
+Anonymous classes can ave constructors.
+Check Day3Q1.java for e.g.
+
+Q. Why do we need interfaces?
+A. It is used to achieve total abstraction, loose coupling and since java can't support multiple inheritance, we make use of multiple implementations.
+
+Q. Accept a festival name and display days on the next 10 years.
+
+An exception is a condition which breaks the regular flow of execution of a program generally as a result of ambiguity, which a reasonable application may try to catch.
+There are 2 types of exceptions, checked and unchecked.
+Checked exceptions need a try/catch block else they won't compile.
+Unchekced exceptions are checked during execution only. The only 2 of this type are ArrayIndexOutOfBounds  and DivideByZero.
+There are another 2 types of exceptions, system defined and user defined.
+There are no userdefined, checked exceptions.
+Exception should be specific(one try followed by several catch blocks), centralised (no nesting of try blocks (you can, but try not to), use 'throws')
+Exception class is the super class to all exception classes.
+Finally block is useful when you use either return or throws statements.
+
+There are 2 types of objects, mutable and immutable.
+In a mutable data type, no new objs are created when we modify the obj.
+In an immutable data type, a new obj is created with every modification.
+String is immutable. StringBuilder is mutable.
+Whenever we create a specific string, e.g. String a1="Sapient";, Java will create a hascode of the contents and make the 'a1' object refer to it.
+Thus when you create another String a2="Sapient"; it will still refer to the previous hashcode only, as Java is smart.
+However, if you make a String s3=new String("Sapient"); A new object with a new reference is created.
+a1.toUpperCase(); -> o/p = Sapient
+a1=a1.toUpperCase(); -> o/p = SAPIENT
+
+StringBuilder a1=new StringBuilder("Sapient");
+StringBuilder a2=1;
+a1.append("Delhi");
+Syso(a1+" "+a2); -> SapientDelhi SapientDelhi
+
+Java is thread safe => Syncrhonised
+
+Study regex acche se.
+
+Q. Create interface with method cal with 2 args, implement interface using anonymous class.
+Q. Accet 10 sudents' details, name, age , dob, city and sort on each one of them. use StudentBean.java and Day3Q2.java
+
+POJO classes shouldn't have main();
+
+You can't use primitive datat types for Genereics, use objects. Use Day3Q3.java
+Generics and Templates are used for storage and not for computation.
